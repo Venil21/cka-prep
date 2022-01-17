@@ -1,0 +1,38 @@
+#Create a ClusterRole with the name api-clusterrole, and the ClusterRoleBinding named api-clusterrolebinding. Map the ServiceAccount from the previous step to the API resources Pods with the operations watch, list, get.
+
+
+#Clusterrole
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+ name: api-clusterrole
+rules :
+  apiGroups : [""]
+  resources : ["pods"]
+  verbs : ["watch","list","get"]
+
+
+
+#Clusterrole binding
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+ name: api-clusterrolebinding
+roleRef:
+ apiGroup: rbac.authorization.k8s.io/v1
+ kind: ClusterRole
+ name: api-clusterrole
+subjects:
+ kind: serviceaccount
+ name: api-access
+ namespace: apps
+
+
+#Alternatively you can use kubectl
+kubectl create clusterrole api-clusterrole --verb=watch,list,get \
+  --resource=pods
+
+kubectl create clusterrolebinding api-clusterrolebinding --clusterrole=api-clusterrole --serviceaccount=api-access
+
+

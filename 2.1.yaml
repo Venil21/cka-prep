@@ -1,0 +1,24 @@
+#Create the ServiceAccount named api-access in a new namespace called apps.
+
+
+
+#First create a name space
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: apps
+
+
+
+#then create the service account
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: api-access
+  namespace: apps
+
+
+#Alternatively you can use  kubectl
+kubectl create namespace  apps
+kubectl create serviceaccount api-access -n apps
+
