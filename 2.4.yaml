@@ -1,0 +1,15 @@
+#Open an interactive shell to the Pod named operator. Use the command line tool curl to make an API call to list the Pods in the namespace rm. What response do you expect? Use the command line tool curl to make an API call to delete the Pod disposable in the namespace rm. Does the response differ from the first call? You can find information about how to interact with Pods using the API via HTTP in the reference guide.
+
+kubectl exec operator -it -n apps -- /bin/sh
+
+
+APISERVER=https://kubernetes.default.svc
+SERVICEACCOUNT=/var/run/secrets/kubernetes.io/serviceaccount
+TOKEN=$(cat ${SERVICEACCOUNT}/token)
+CACERT=${SERVICEACCOUNT}/ca.crt
+
+
+
+curl --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" -X GET https://kubernetes.default.svc/api/v1/namespaces/rm/pods
+
+curl --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" -X  DELETE $APISERVER/api/v1/namespaces/rm/pods/disposable

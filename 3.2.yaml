@@ -1,0 +1,3 @@
+Scale the Deployment to 7 replicas using the scale command. Ensure that the correct number of Pod exists.
+
+kubectl scale deployment ngnix --replicas=7

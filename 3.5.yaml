@@ -1,0 +1,23 @@
+#Create a new Secret named basic-auth of type kubernetes.io/basic-auth. Assign the key-value pairs username=super and password=my-s8cr3t. Mount the Secret as a Volume with the path /etc/secret and read-only permissions to the Pods controlled by the Deployment.
+
+
+
+#kubectl create secret generic basic-auth --type=basic-auth --from-literal=username=super --from-literal=password=my-s8cr3t
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secret-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: nginx
+      volumeMounts:
+        - name: secret-volume
+          mountPath: /etc/secret
+  volumes:
+    - name: secret-volume
+      secret:
+        secretName: basic-auth
+        defaultMode: 0400

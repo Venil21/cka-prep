@@ -30,9 +30,8 @@ subjects:
 
 
 #Alternatively you can use kubectl
-kubectl create clusterrole api-clusterrole --verb=watch,list,get \
-  --resource=pods
+kubectl create clusterrole api-clusterrole --verb=watch,list,get --resource=pods
 
-kubectl create clusterrolebinding api-clusterrolebinding --clusterrole=api-clusterrole --serviceaccount=api-access
+kubectl create clusterrolebinding api-clusterrolebinding --clusterrole=api-clusterrole --serviceaccount=apps:api-access
 
 

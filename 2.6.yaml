@@ -1,0 +1,12 @@
+Navigate to the directory app-a/ch02/backup-restore-etcd of the checked-out GitHub repository bmuschko/cka-study-guide. Start up the VMs running the cluster using the command vagrant up. The cluster consists of a single control plane node named k8s-master, and two worker nodes named worker-1, and worker-2. The etcdctl tool has been preinstalled on the node k8s-master. Back up etcd to the snapshot file /opt/etcd.bak. Restore etcd from the snapshot file. Use the data directory /var/bak. Once done, shut down the cluster using vagrant destroy -f.
+
+
+etcdctl snapshot save snapshot
+sudo ETCDCTL_API=3 etcdctl --cacert=/etc/kubernetes/pki/etcd/ca.crt   --cert=/etc/kubernetes/pki/etcd/server.crt   --key=/etc/kubernetes/pki/etcd/server.key snapshot save /opt/etcd.bak
+
+
+ sudo ETCDCTL_API=3 etcdctl --data-dir=/var/bak snapshot restore \
+>   /opt/etcd.bak
+
+
+

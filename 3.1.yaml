@@ -1,0 +1,4 @@
+Create a Deployment named nginx that uses the image nginx:1.17.0. Set 2 replicas to begin with.
+
+kubectl create deployment ngnix --image=nginx:1.17.0 --replicas=2
+

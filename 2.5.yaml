@@ -1,0 +1,41 @@
+Navigate to the directory app-a/ch02/upgrade-version of the checked-out GitHub repository bmuschko/cka-study-guide. Start up the VMs running the cluster using the command vagrant up. Upgrade all nodes of the cluster from Kubernetes 1.20.4 to 1.21.2. The cluster consists of a single control plane node named k8s-master, and three worker nodes named worker-1, worker-2, and worker-3. Once done, shut down the cluster using vagrant destroy -f.
+
+
+
+install virtual box and vagrant
+
+
+
+vagrant up
+
+
+vagrant ssh k8s-master
+
+sudo apt-mark unhold kubeadm && \
+sudo apt-get update && apt-get install -y kubeadm=1.21.2-00 && \
+sudo apt-mark hold kubeadm
+
+
+sudo kubeadm upgrade node
+
+sudo kubeadm upgrade apply v1.21.2
+
+
+
+
+kubectl drain k8s-master --ignore-daemonsets
+
+kubectl drain worker-1 --ignore-daemonsets
+
+
+sudo apt-mark unhold kubelet kubectl && \s
+sudo  apt-get update && sudo apt-get install -y kubelet=1.21.2-00 kubectl=1.21.2-00 && \
+sudo  apt-mark hold kubelet kubectl
+
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+
+kubectl uncordon k8s-master
+kubectl uncordon worker-1
+
+

@@ -1,0 +1,31 @@
+#Create a Horizontal Pod Autoscaler named nginx-hpa for the Deployment with an average utilization of CPU to 65% and an average utilization of memory to 1Gi. Set the minimum number of replicas to 3 and the maximum number of replicas to 20.
+#kubectl autoscale
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+ name: ngnix-hpa
+spec:
+  maxReplicas : 20
+  minReplicas : 3
+  scaleTargetRef:
+    kind: deployment
+    name: ngnix
+  metrics:
+   - type: Resource
+     resource:
+      name: cpu
+      target:
+       type: Utilization
+       averageUtilization: 65
+   - type: Resource
+     resource:
+       name: memory
+       target:
+        type: AverageValue
+        averageValue: 1Gi
+
+
+
+
+
+#kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10

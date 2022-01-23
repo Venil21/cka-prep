@@ -1,0 +1,9 @@
+Update the Pod template of the Deployment to use the image nginx:1.21.1. Make sure that the changes are recorded. Inspect the revision history. How many revisions should be rendered? Roll back to the first revision.
+
+
+kubectl edit deployment ngnix
+
+or
+
+
+kubectl  set image ngnix=nginx:1.21.1

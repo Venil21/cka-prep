@@ -1,4 +1,4 @@
-#Create a Pod named operator with the image nginx:1.21.1 in the namespace apps. Expose the container port 80. Assign the ServiceAccount api-access to the Pod. Create another Pod named disposable with the image nginx:1.21.1 in the namespace rm. Do not assign the ServiceAccount to the Pod.
+#Create a Pod named operator with the image a in the namespace apps. Expose the container port 80. Assign the ServiceAccount api-access to the Pod. Create another Pod named disposable with the image nginx:1.21.1 in the namespace rm. Do not assign the ServiceAccount to the Pod.
 apiVersion: v1
 kind: Pod
 metadata :
@@ -31,6 +31,6 @@ spec:
   image: nginx:1.21.1
 
 #Alternatively use kubectl
-kubectl run operator --image=nginx:1.21.1 --restart=Never  --expose=80 --serviceaccount=api-access -n apps
+kubectl run operator --image=nginx:1.21.1 --restart=Never  --port=80 --serviceaccount=api-access -n apps
 kubectl create namespace rm
 kubectl run disposable --image=nginx:1.21.1 --restart=Never -n rm
